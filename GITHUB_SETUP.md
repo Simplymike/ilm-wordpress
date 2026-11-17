@@ -76,9 +76,9 @@ chmod 700 ~/.ssh
 | Secret | Значение |
 |--------|----------|
 | `DEPLOY_SSH_KEY` | Содержимое `ilm_deploy_key` (приватный ключ) |
-| `DEPLOY_REMOTE_HOST` | IP сервера или домен nic.ru |
-| `DEPLOY_REMOTE_USER` | Пользователь SSH (обычно `root` или `deploy`) |
-| `DEPLOY_TARGET` | Путь на сервере (например `/home/izoralm.ru/public_html`) |
+| `DEPLOY_REMOTE_HOST` | ssh.izo2414076.nichost.ru |
+| `DEPLOY_REMOTE_USER` | izo2414076 |
+| `DEPLOY_TARGET` | /home/izo2414076/izoralm.ru/docs |
 
 **Пример добавления Secret:**
 ```

@@ -61,12 +61,12 @@ ssh-keygen -t rsa -b 4096 -f "$env:USERPROFILE\.ssh\ilm_deploy_key" -N ""
 
 Добавьте 4 Secrets:
 
-| Secret | Описание | Пример |
+| Secret | Описание | Значение |
 |--------|----------|---------|
-| `DEPLOY_SSH_KEY` | Содержимое `ilm_deploy_key` (приватный) | `-----BEGIN RSA PRIVATE KEY-----...` |
-| `DEPLOY_REMOTE_HOST` | IP или домен сервера | `123.45.67.89` или `nic.ru` |
-| `DEPLOY_REMOTE_USER` | SSH юзер | `root` или `deploy` |
-| `DEPLOY_TARGET` | Путь на сервере | `/home/izoralm.ru/public_html` |
+| `DEPLOY_SSH_KEY` | Содержимое приватного ключа | (см. инструкцию ниже) |
+| `DEPLOY_REMOTE_HOST` | SSH хост nic.ru | ssh.izo2414076.nichost.ru |
+| `DEPLOY_REMOTE_USER` | SSH пользователь | izo2414076 |
+| `DEPLOY_TARGET` | Путь к WordPress на сервере | /home/izo2414076/izoralm.ru/docs |
 
 #### 3.4 Проверьте автоматический деплой
 

@@ -23,9 +23,9 @@ Value: izo2414076
 
 ### Secret 3: `DEPLOY_TARGET`
 ```
-Value: /home/izo2414076/public_html
+Value: /home/izo2414076/izoralm.ru/docs
 ```
-(Или узнайте точный путь в cPanel/Plesk)
+(Путь к корню WordPress на nic.ru)
 
 ### Secret 4: `DEPLOY_SSH_KEY`
 ```
