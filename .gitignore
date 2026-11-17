@@ -1,0 +1,6 @@
+.env
+private/
+*.sql
+*.sql.gz
+*.pem
+wp-config.php

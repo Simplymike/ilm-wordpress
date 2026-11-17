@@ -1,0 +1,54 @@
+name: ilm-wordpress
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: ${WP_DB_PASSWORD:?Create .env first}
+      MARIADB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD:?Create .env first}
+    volumes:
+      - database:/var/lib/mysql
+      - ./private:/restore:ro
+      - ./docker/snapshot.sh:/snapshot.sh:ro
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  web:
+    image: wordpress:7.1.4-php8.3-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${WP_PORT:-8080}:80"
+    healthcheck:
+      test: [CMD, php, -r, "exit(@fsockopen('127.0.0.1', 80) ? 0 : 1);"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    environment: &wp_environment
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:?Create .env first}
+      WORDPRESS_TABLE_PREFIX: cms_wp_
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        define('WP_DEBUG_DISPLAY', false);
+    volumes: &wp_volumes
+      - wordpress:/var/www/html
+      - ./wp-content/themes/ilm-preview:/var/www/html/wp-content/themes/ilm-preview:ro
+      - ./docker/local-only.php:/var/www/html/wp-content/mu-plugins/ilm-local-only.php:ro
+      - ./private:/restore:ro
+      - ./docker/snapshot.sh:/snapshot.sh:ro
+  cli:
+    image: wordpress:cli
+    profiles: [tools]
+    user: "33:33"
+    environment: *wp_environment
+    volumes: *wp_volumes
+volumes:
+  database:
+  wordpress:

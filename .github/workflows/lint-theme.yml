@@ -1,0 +1,65 @@
+name: Lint ILM Theme
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'wp-content/themes/ilm-preview/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'wp-content/themes/ilm-preview/**'
+
+jobs:
+  lint-php:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: php-cs-fixer, phpstan
+
+      - name: Check PHP syntax
+        run: |
+          find wp-content/themes/ilm-preview -name "*.php" -type f -exec php -l {} \;
+
+  lint-css:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install stylelint
+        run: npm install -g stylelint stylelint-config-standard
+
+      - name: Lint CSS
+        run: stylelint "wp-content/themes/ilm-preview/**/*.css" --allow-empty-input || true
+
+  lint-html:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install htmlhint
+        run: npm install -g htmlhint
+
+      - name: Lint HTML
+        run: htmlhint "wp-content/themes/ilm-preview/**/*.html" || true

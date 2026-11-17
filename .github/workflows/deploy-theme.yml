@@ -1,0 +1,44 @@
+name: Deploy ILM Theme to Production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wp-content/themes/ilm-preview/**'
+      - '.github/workflows/deploy-theme.yml'
+  workflow_dispatch:
+
+env:
+  DEPLOY_PATH: wp-content/themes/ilm-preview
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy theme files via SSH
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.DEPLOY_REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_REMOTE_USER }}
+          TARGET: ${{ secrets.DEPLOY_TARGET }}/${{ env.DEPLOY_PATH }}
+          ARGS: "-avz --delete"
+          EXCLUDE: ".git/,.env,.gitignore,node_modules/,*.sql,*.pem"
+          SCRIPT_BEFORE: |
+            echo "Starting ILM theme deployment..."
+          SCRIPT_AFTER: |
+            echo "Theme deployment completed!"
+            echo "Updated files:"
+            ls -la ${{ secrets.DEPLOY_TARGET }}/${{ env.DEPLOY_PATH }}/
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Deployment status: ${{ job.status }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit: ${{ github.sha }}"

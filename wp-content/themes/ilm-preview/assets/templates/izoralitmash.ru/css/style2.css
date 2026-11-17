@@ -1,0 +1,114 @@
+
+@media (min-width: 769px) {
+	
+.contacts__card-route{display:none}
+
+}
+
+/* Keep the existing banner overlap while pinning navigation to the viewport. */
+:root {
+    --site-header-height: 88px;
+}
+html {
+    scroll-padding-top: calc(var(--site-header-height) + 16px);
+}
+.header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    transition: background-color .25s ease, box-shadow .25s ease;
+}
+.header--solid {
+    background-color: #30383d;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, .12);
+}
+.header.header--active {
+    background-color: #0d2c21;
+}
+.mobileMenu {
+    position: fixed;
+    top: var(--site-header-height);
+    left: 0;
+    right: 0;
+}
+.mobileMenu--active {
+    height: calc(100vh - var(--site-header-height));
+    height: calc(100dvh - var(--site-header-height));
+}
+.mobileMenu__content {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .header {
+        transition: none;
+    }
+}
+
+/* Home product cards: one linked image per row. */
+.about__content--full {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.footer__blocks--contacts {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: start;
+}
+
+.products__grid--vertical {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+.products__grid--vertical > .products__grid-item,
+.products__grid--vertical > .products__grid-item:first-child {
+    grid-row: auto;
+    height: 800px;
+}
+.products__grid--vertical .item-products__link {
+    background: transparent;
+}
+.products__grid--vertical .item-products__link::after {
+    display: none;
+}
+.products__grid--vertical .item-products__image img {
+    object-fit: contain;
+    object-position: center;
+}
+.products__grid--vertical .item-products__title,
+.products__grid--vertical .item-products__more-title,
+.products__grid--vertical .item-products__more-icon {
+    color: #414258;
+}
+.products__grid--vertical .item-products__more-icon path {
+    fill: currentColor;
+}
+@media (max-width: 767px) {
+    .products__grid--vertical {
+        gap: 16px;
+    }
+}
+.catalog--filter-banners .catalog__wrapper {
+    width: 100%;
+    max-width: none;
+    padding-inline: 0;
+}
+
+.catalog--filter-banners .catalog__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.catalog--filter-banners .catalog__list-item,
+.catalog--filter-banners .item-catalog__link {
+    width: 100%;
+    max-width: none;
+}
+
+.catalog--filter-banners .item-catalog__filter-banner {
+    display: block;
+    width: 100%;
+    height: 600px;
+    object-fit: contain;
+}
+

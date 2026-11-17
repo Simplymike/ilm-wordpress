@@ -1,0 +1,58 @@
+{
+  "ilm-home": [
+    "Главная",
+    "home"
+  ],
+  "about": [
+    "О компании",
+    "about"
+  ],
+  "contacts": [
+    "Контакты",
+    "contacts"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov": [
+    "Фильтры для фильтрации металлов и сплавов",
+    "filters"
+  ],
+  "svyazuyuwie-dlya-litejnogo-proizvodstva": [
+    "Связующие для литейного производства",
+    "svyazuyuwie-dlya-litejnogo-proizvodstva"
+  ],
+  "vspomogatelnye-materialy-dlya-litejnogo-proizvodstva": [
+    "Вспомогательные материалы для литейного производства",
+    "vspomogatelnye-materialy-dlya-litejnogo-proizvodstva"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/keramicheskie-pressovannye-filtry-dlya-filtracii-metallov-i-splavov": [
+    "Керамические прессованные фильтры для фильтрации металлов и сплавов",
+    "filtry-dlya-filtracii-metallov-i-splavov--keramicheskie-pressovannye-filtry-dlya-filtracii-metallov-i-splavov"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/penokeramicheskie-filtry-dlya-filtracii-alyuminievogo-litya": [
+    "Пенокерамические фильтры для фильтрации алюминиевого литья",
+    "filtry-dlya-filtracii-metallov-i-splavov--penokeramicheskie-filtry-dlya-filtracii-alyuminievogo-litya"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/penokeramicheskie-filtry-dlya-filtracii-chugunnogo-i-cvetnogo-litya": [
+    "Пенокерамические фильтры для фильтрации чугунного и цветного литья",
+    "filtry-dlya-filtracii-metallov-i-splavov--penokeramicheskie-filtry-dlya-filtracii-chugunnogo-i-cvetnogo-litya"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/penokeramicheskie-filtry-dlya-filtracii-stalnogo-litya": [
+    "Пенокерамические фильтры для фильтрации стального литья",
+    "filtry-dlya-filtracii-metallov-i-splavov--penokeramicheskie-filtry-dlya-filtracii-stalnogo-litya"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/penokeramicheskie-metallurgicheskie-filtry-dlya-filtracii-alyuminievyh-rasplavov": [
+    "Пенокерамические металлургические фильтры для фильтрации алюминиевых расплавов",
+    "filtry-dlya-filtracii-metallov-i-splavov--penokeramicheskie-metallurgicheskie-filtry-dlya-filtracii-alyuminievyh-rasplavov"
+  ],
+  "filtry-dlya-filtracii-metallov-i-splavov/tkanevye-filtry-dlya-filtracii-metallov-i-splavov": [
+    "Тканевые фильтры для фильтрации металлов и сплавов",
+    "filtry-dlya-filtracii-metallov-i-splavov--tkanevye-filtry-dlya-filtracii-metallov-i-splavov"
+  ],
+  "svyazuyuwie-dlya-litejnogo-proizvodstva/cold-box-sistemy": [
+    "Cold Box системы",
+    "svyazuyuwie-dlya-litejnogo-proizvodstva--cold-box-sistemy"
+  ],
+  "svyazuyuwie-dlya-litejnogo-proizvodstva/no-bake-sistemy": [
+    "No Bake системы",
+    "svyazuyuwie-dlya-litejnogo-proizvodstva--no-bake-sistemy"
+  ]
+}
