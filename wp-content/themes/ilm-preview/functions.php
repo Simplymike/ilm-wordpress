@@ -1,4 +1,6 @@
 <?php
+// Updated for GitHub deployment - 2026-11-17 12:19
+
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails', ['post']);
@@ -104,3 +106,4 @@ function ilm_preview_import_screen() {
     submit_button('Импортировать страницы', 'primary', 'ilm_import');
     echo '</form></div>';
 }
+
