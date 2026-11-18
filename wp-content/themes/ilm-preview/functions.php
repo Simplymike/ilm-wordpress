@@ -1,10 +1,15 @@
 <?php
 // Updated for GitHub deployment - 2026-11-17 12:19
+// Mobile optimization - 2026-11-18
 
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails', ['post']);
 });
+
+// ═══════════════════════════════════════════════════════════════
+// PERFORMANCE OPTIMIZATIONS
+// ═══════════════════════════════════════════════════════════════
 
 add_action('wp_enqueue_scripts', function () {
     $base = get_template_directory_uri() . '/assets/templates/izoralitmash.ru';
@@ -13,7 +18,32 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('ilm-news', get_stylesheet_uri(), ['ilm-site'], wp_get_theme()->get('Version'));
     wp_enqueue_script('ilm-interactions', $base . '/js/scripts.min.js', [], '0.1.0', true);
     wp_enqueue_script('ilm-header', $base . '/js/header.js', [], '0.1.0', true);
-});
+    wp_enqueue_script('ilm-mobile-menu', get_template_directory_uri() . '/mobile-menu.js', [], wp_get_theme()->get('Version'), true);
+}, 10);
+
+// Добавляем критические мета-теги для мобилов
+add_action('wp_head', function () {
+    echo '<meta name="theme-color" content="#ffffff">' . "\n";
+    echo '<meta name="apple-mobile-web-app-capable" content="yes">' . "\n";
+    echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">' . "\n";
+}, 1);
+
+// Lazy loading для изображений
+add_filter('wp_get_attachment_image_attributes', function ($attr, $attachment, $size) {
+    if (!isset($attr['loading'])) {
+        $attr['loading'] = 'lazy';
+    }
+    return $attr;
+}, 10, 3);
+
+// Оптимизация изображений WordPress (use srcset)
+add_filter('wp_calculate_image_sizes', function ($sizes, $size) {
+    return '(max-width: 600px) 100vw, (max-width: 1024px) 85vw, 1200px';
+}, 10, 2);
+
+// ═══════════════════════════════════════════════════════════════
+// CONTENT FILTERING & RENDERING
+// ═══════════════════════════════════════════════════════════════
 
 add_filter('the_content', function ($content) {
     if (!is_front_page() || !is_main_query() || !in_the_loop()) {
@@ -39,10 +69,18 @@ add_filter('the_content', function ($content) {
     return substr_replace($content, ob_get_clean(), $offset, 0);
 }, 20);
 
+// ═══════════════════════════════════════════════════════════════
+// TEMPLATE MARKUP HELPERS
+// ═══════════════════════════════════════════════════════════════
+
 function ilm_preview_markup($name) {
     $markup = file_get_contents(get_template_directory() . '/' . $name . '.html');
     return str_replace('{{ILM_ASSETS}}', esc_url(get_template_directory_uri() . '/assets'), $markup);
 }
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN PAGE & IMPORT FUNCTIONALITY
+// ═══════════════════════════════════════════════════════════════
 
 add_action('admin_menu', function () {
     add_theme_page('Импорт страниц ИжораЛитМаш', 'Импорт страниц ИжораЛитМаш',
@@ -106,4 +144,5 @@ function ilm_preview_import_screen() {
     submit_button('Импортировать страницы', 'primary', 'ilm_import');
     echo '</form></div>';
 }
+
 
