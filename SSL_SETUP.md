@@ -14,24 +14,49 @@
 
 Это означает что нужно **получить сертификат от Let's Encrypt**, а затем загрузить его в эту панель.
 
-### 🚀 Быстрый способ: Получить бесплатный сертификат
+### 🚀 Получить бесплатный сертификат
 
-#### Шаг 1: Получить сертификат Let's Encrypt
+**Способ 1: Через SSH (если есть доступ)**
 
-Используйте **бесплатный онлайн сервис ZeroSSL** (проще всего):
+Это самый надежный способ:
 
-1. Перейдите: https://zerossl.com/
-2. Введите домен: `izoralm.ru` (и добавьте `www.izoralm.ru`)
-3. Выберите **90-day Free Certificate**
-4. Нажмите **Next**
-5. Выберите **Email Verification** (быстрее)
-6. На почту придёт письмо с подтверждением - кликните ссылку
-7. Вы получите три файла:
-   - `certificate.crt` (основной сертификат)
-   - `ca_bundle.crt` (промежуточный сертификат)
-   - `private.key` (приватный ключ)
+```bash
+# 1. Подключитесь по SSH к серверу:
+ssh izo2414076@izoralm.ru
 
-#### Шаг 2: Загрузите в панель nic.ru
+# 2. Установите Certbot (если не установлен)
+sudo apt-get update
+sudo apt-get install certbot python3-certbot-apache -y
+
+# 3. Получите сертификат
+sudo certbot certonly --webroot -w /home/izo2414076/izoralm.ru/docs \
+  -d izoralm.ru -d www.izoralm.ru
+
+# 4. Выберите Email verification
+
+# Файлы будут в папке: /etc/letsencrypt/live/izoralm.ru/
+
+# 5. Скопируйте файлы на локальный компьютер:
+scp izo2414076@izoralm.ru:/etc/letsencrypt/live/izoralm.ru/fullchain.pem ./certificate.crt
+scp izo2414076@izoralm.ru:/etc/letsencrypt/live/izoralm.ru/privkey.pem ./private.key
+```
+
+**Способ 2: Через SSL.com (если нет SSH)**
+
+1. Перейдите: https://www.ssl.com/ssl-certificate/
+2. Выберите **Free SSL Certificate**
+3. Введите домен: `izoralm.ru`
+4. Пройдите Email Verification
+5. Скачайте сертификаты
+
+**Способ 3: Через sslforfree.com**
+
+1. Перейдите: https://www.sslforfree.com/
+2. Введите домен: `izoralm.ru`
+3. Выберите проверку по файлам (File Upload)
+4. Следуйте инструкциям
+
+### 📋 Загрузить в панель nic.ru
 
 1. Откройте этот интерфейс "Установка сертификата" на nic.ru
 2. В поле **Сертификат**:
@@ -239,9 +264,19 @@ https://www.ssllabs.com/ssltest/analyze.html?d=izoralm.ru
 
 ## 📋 Быстрый чеклист для вашей панели
 
-- [ ] Перейду на https://zerossl.com/
+**Если есть SSH доступ (рекомендуется):**
+- [ ] Подключусь по SSH: `ssh izo2414076@izoralm.ru`
+- [ ] Установлю Certbot: `sudo apt-get install certbot -y`
+- [ ] Получу сертификат через Certbot
+- [ ] Скопирую файлы на локальный ПК
+- [ ] Загружу в панель nic.ru
+
+**Если нет SSH (используйте онлайн-сервис):**
+- [ ] Перейду на https://www.sslforfree.com/ или https://www.ssl.com/
 - [ ] Получу бесплатный Let's Encrypt сертификат для izoralm.ru
 - [ ] Скачаю файлы: certificate.crt, ca_bundle.crt, private.key
+
+**После получения файлов:**
 - [ ] Откроюю "Установка сертификата" на nic.ru
 - [ ] Загружу certificate.crt в поле "Сертификат"
 - [ ] Загружу ca_bundle.crt в поле "Промежуточный сертификат"
